@@ -1,0 +1,13 @@
+x: int;
+y: int;
+flag: bool;
+begin
+  x = True;
+  y = x + 5;
+  flag = x > y;
+  if flag then
+    begin
+      print(y);
+      y = y - 1;
+    end
+end
