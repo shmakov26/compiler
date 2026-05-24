@@ -1,0 +1,21 @@
+x: int;
+y: int;
+flag: bool;
+begin
+  x = 10;
+  y = x + 5;
+  flag = x > y;
+  if flag then
+    begin
+      print(y);
+      y = y - 1;
+    end
+  else
+    begin
+      print(x);
+    end;
+  while x < 100 begin
+    x = x + 1;
+    print(x);
+  end;
+end
