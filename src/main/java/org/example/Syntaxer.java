@@ -3,9 +3,10 @@ package org.example;
 import java.util.*;
 
 public class Syntaxer {
+    // Список токенов
     private final List<Token> tokens;
+    // Индекс текущего токена
     private int tokenIndex = 0;
-
     // Таблица переменных: имя -> {тип, инициализирован}
     private final Map<String, VarInfo> symbolTable = new HashMap<>();
     // Стек типов
@@ -15,7 +16,9 @@ public class Syntaxer {
     // Счётчик уникальных меток
     private int labelCounter = 0;
 
-    public Syntaxer(List<Token> tokens) { this.tokens = tokens; }
+    public Syntaxer(List<Token> tokens) {
+        this.tokens = tokens;
+    }
 
     public void parse() {
         parseProgram();
@@ -49,8 +52,14 @@ public class Syntaxer {
 
         check(TokenType.COLON);
         Type type = null;
-        if (current().type == TokenType.INT) { type = Type.INT; nextToken(); }
-        else if (current().type == TokenType.BOOL) { type = Type.BOOL; nextToken(); }
+        if (current().type == TokenType.INT) {
+            type = Type.INT;
+            nextToken();
+        }
+        else if (current().type == TokenType.BOOL) {
+            type = Type.BOOL;
+            nextToken();
+        }
         else error("Expected 'int' or 'bool' after ':', received:" + current().value);
 
         symbolTable.put(id, new VarInfo(type, false));
@@ -172,7 +181,7 @@ public class Syntaxer {
         }
     }
 
-    // ArithExpr → ArithExpr + Term
+    // ArithExpr -> ArithExpr + Term
     // | ArithExpr − Term
     // | Term
     private void parseArithExpr() {
@@ -186,7 +195,7 @@ public class Syntaxer {
         }
     }
 
-    // Term → Term ∗ Factor
+    // Term -> Term ∗ Factor
     // | Term / Factor
     // | Factor
     private void parseTerm() {
@@ -200,7 +209,7 @@ public class Syntaxer {
         }
     }
 
-    // Factor → Id
+    // Factor -> Id
     // | Num
     // | (ArithExpr)
     private void parseFactor() {
